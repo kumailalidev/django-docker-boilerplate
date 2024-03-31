@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% load i18n static %}
+
+{% block content %}
+  <!-- messages -->
+  {% if messages %}
+    <ul>
+      {% for message in messages %}<li>{{ message }}</li>{% endfor %}
+    </ul>
+  {% endif %}
+  <!-- form errors (message only) -->
+  {% if form.errors and not form.non_field_errors %}
+    <p>
+      {% blocktranslate count counter=form.errors.items|length %}Please correct the error below.{% plural %}Please correct the errors below.{% endblocktranslate %}
+    </p>
+  {% endif %}
+  <!-- form non-field error messages -->
+  {% if form.non_field_errors %}
+    {% for error in form.non_field_errors %}<p>{{ error }}</p>{% endfor %}
+  {% endif %}
+  <div>
+    <form action="." method="post">
+      {% csrf_token %}
+      <div>
+        {{ form.username.errors }}
+        {{ form.username.label_tag }} {{ form.username }}
+      </div>
+      <div>
+        {{ form.password.errors }}
+        {{ form.password.label_tag }} {{ form.password }}
+      </div>
+      {% url '' as password_reset_url %}
+      {% if password_reset_url %}
+        <div>
+          <a href="{{ password_reset_url }}">{% translate 'Forgotten your password or username?' %}</a>
+        </div>
+      {% endif %}
+      <div>
+        <!-- hidden field for redirecting -->
+        <input type="hidden" name="next" value="{{ next }}" />
+      </div>
+      <div>
+        <input type="submit" value="{% translate 'Log in' %}" />
+      </div>
+    </form>
+  </div>
+{% endblock content %}

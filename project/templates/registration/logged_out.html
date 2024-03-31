@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% load i18n %}
+
+{% block content %}
+  <h1>{{ title }}</h1>
+  <p>{{ subtitle }}</p>
+  {% if messages %}
+    <ul>
+      {% for message in messages %}<li>{{ message }}</li>{% endfor %}
+    </ul>
+  {% endif %}
+  <p>{% translate "Thanks for spending some quality time with the web site today." %}</p>
+  <p>
+    <a href="{% url 'accounts:login' %}">{% translate 'Log in again' %}</a>
+  </p>
+{% endblock content %}

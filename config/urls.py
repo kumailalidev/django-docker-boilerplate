@@ -9,8 +9,6 @@ from django.views.generic.base import RedirectView
 DEBUG = settings.DEBUG
 INSTALLED_APPS = settings.INSTALLED_APPS
 ADMIN_URL = settings.ADMIN_URL
-MEDIA_URL = settings.MEDIA_URL
-MEDIA_ROOT = settings.MEDIA_ROOT
 
 urlpatterns = [
     path(
@@ -30,11 +28,6 @@ urlpatterns = [
 
 # for development environment only
 if DEBUG:
-    # Serve media files using static app
-    from django.conf.urls.static import static
-
-    urlpatterns += static(MEDIA_URL, document_root=MEDIA_ROOT)
-
     # Activate Django debug toolbar
     if "debug_toolbar" in INSTALLED_APPS:
         import debug_toolbar

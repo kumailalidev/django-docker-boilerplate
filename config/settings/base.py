@@ -12,15 +12,10 @@ PROJECT_DIR = BASE_DIR / "project"
 
 env = environ.Env()
 
-ENV_FILE = BASE_DIR / ".env"
-if Path(ENV_FILE).exists():
-    # Take environment variables form .env file
-    env.read_env(str(ENV_FILE), overwrite=True)
-
 # GENERAL
 # ------------------------------------------------------------------------------
 # https://docs.djangoproject.com/en/dev/ref/settings/#debug
-DEBUG = env.bool("DJANGO_DEBUG", False)
+DEBUG = env.bool("DJANGO_DEBUG", default=False)
 # Local time zone. Choices are
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
 # though not all of them may be available with every OS.
@@ -41,14 +36,9 @@ LOCALE_PATHS = [str(BASE_DIR / "locale")]
 # DATABASE
 # ------------------------------------------------------------------------------
 # https://docs.djangoproject.com/en/dev/ref/settings/#databases
-sqlite_path = str(PROJECT_DIR / "db.sqlite3")
 DATABASES = {
     # PostgreSQL:   postgres://user:password@hostname_or_ip:port/database_name
-    # SQLite:       sqlite:////path/to/database/file (e.g. sqlite:///db.sqlite3)
-    "default": env.db(
-        "DATABASE_URL",
-        default=f"sqlite:///{sqlite_path}",
-    )
+    "default": env.db("DATABASE_URL")
 }
 
 # URLS
@@ -132,7 +122,6 @@ AUTH_PASSWORD_VALIDATORS = [
 # https://docs.djangoproject.com/en/dev/ref/settings/#middleware
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
-    "whitenoise.middleware.WhiteNoiseMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.locale.LocaleMiddleware",
     "django.middleware.common.CommonMiddleware",
@@ -142,6 +131,7 @@ MIDDLEWARE = [
     "django.middleware.common.BrokenLinkEmailsMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
+
 # 'public' directory for media and staticfiles
 PUBLIC_DIR = BASE_DIR / "public"
 
@@ -205,6 +195,8 @@ SESSION_COOKIE_HTTPONLY = True  # Default
 SESSION_COOKIE_SECURE = False  # Default
 # https://docs.djangoproject.com/en/dev/ref/settings/#csrf-cookie-httponly
 CSRF_COOKIE_HTTPONLY = False  # Default
+# https://docs.djangoproject.com/en/dev/ref/settings/#csrf-trusted-origins
+CSRF_TRUSTED_ORIGINS = []  # Default
 # https://docs.djangoproject.com/en/dev/ref/settings/#x-frame-options
 X_FRAME_OPTIONS = "DENY"
 
@@ -232,6 +224,12 @@ EMAIL_USE_SSL = env.bool("DJANGO_EMAIL_USE_SSL", default=False)
 EMAIL_SSL_CERTFILE = env("DJANGO_EMAIL_SSL_CERTFILE", default=None)
 # https://docs.djangoproject.com/en/dev/ref/settings/#email-ssl-keyfile
 EMAIL_SSL_KEYFILE = env("DJANGO_EMAIL_SSL_KEYFILE", default=None)
+# https://docs.djangoproject.com/en/dev/ref/settings/#default-from-email
+DEFAULT_FROM_EMAIL = env("DJANGO_DEFAULT_FROM_EMAIL", default="webmaster@localhost")
+# https://docs.djangoproject.com/en/dev/ref/settings/#server-email
+SERVER_EMAIL = env("DJANGO_SERVER_EMAIL", default="root@localhost")
+# https://docs.djangoproject.com/en/dev/ref/settings/#email-subject-prefix
+EMAIL_SUBJECT_PREFIX = env("DJANGO_EMAIL_SUBJECT_PREFIX", default="[Django] ")
 # https://docs.djangoproject.com/en/dev/ref/settings/#email-timeout
 EMAIL_TIMEOUT = 5  # Default is None
 

@@ -4,6 +4,7 @@ etcetera
 .vscode
 .editorconfig
 .gitignore
+.djlintrc
 todo.txt
 README.md
 Makefile

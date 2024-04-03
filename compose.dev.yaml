@@ -3,7 +3,7 @@ services:
     build:
       context: .
       dockerfile: docker/dev/web/dev.web.Dockerfile
-    container_name: project-name
+    container_name: django
     volumes:
       - .:/usr/src/app/
       - staticfiles:/usr/src/app/public/staticfiles
@@ -15,12 +15,12 @@ services:
       - ./.env.dev.db
       - ./.env.dev
     depends_on:
-      - db
+      - database
       - mailhog
 
-  db:
+  database:
     image: postgres:15
-    container_name: postgresql
+    container_name: postgres
     volumes:
       - postgres_data:/var/lib/postgresql/data/
     env_file:

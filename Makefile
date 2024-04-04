@@ -111,3 +111,12 @@ pytest-cov:
 # Generate HTML coverage report
 cov-html:
 	docker compose -f $(COMPOSE_FILE) exec $(DJANGO_SERVICE) coverage html;
+
+
+# TESTING
+# ------------------------------------------------------------------------------
+djlint:
+	docker compose -f $(COMPOSE_FILE) exec $(DJANGO_SERVICE) djlint project/templates/ --lint
+
+djlint-reformat:
+	docker compose -f $(COMPOSE_FILE) exec $(DJANGO_SERVICE) djlint project/templates/ --reformat

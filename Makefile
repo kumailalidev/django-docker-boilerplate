@@ -113,7 +113,7 @@ cov-html:
 	docker compose -f $(COMPOSE_FILE) exec $(DJANGO_SERVICE) coverage html;
 
 
-# TESTING
+# LINTING (HTML TEMPLATES)
 # ------------------------------------------------------------------------------
 djlint:
 	docker compose -f $(COMPOSE_FILE) exec $(DJANGO_SERVICE) djlint project/templates/ --lint

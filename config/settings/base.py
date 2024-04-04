@@ -231,7 +231,7 @@ SERVER_EMAIL = env("DJANGO_SERVER_EMAIL", default="root@localhost")
 # https://docs.djangoproject.com/en/dev/ref/settings/#email-subject-prefix
 EMAIL_SUBJECT_PREFIX = env("DJANGO_EMAIL_SUBJECT_PREFIX", default="[Django] ")
 # https://docs.djangoproject.com/en/dev/ref/settings/#email-timeout
-EMAIL_TIMEOUT = 5  # Default is None
+EMAIL_TIMEOUT = None  # Default
 
 # ADMIN
 # ------------------------------------------------------------------------------

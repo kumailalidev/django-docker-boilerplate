@@ -200,7 +200,6 @@ CSRF_TRUSTED_ORIGINS = []  # Default
 # https://docs.djangoproject.com/en/dev/ref/settings/#x-frame-options
 X_FRAME_OPTIONS = "DENY"
 
-
 # HTTP
 # ------------------------------------------------------------------------------
 # https://docs.djangoproject.com/en/dev/ref/settings/#use-x-forwarded-host

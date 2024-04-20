@@ -11,25 +11,27 @@ ENV PYTHONUNBUFFERED 1
 # install system dependencies
 RUN apt-get update \
     && apt-get install -y netcat \
-    && apt-get clean
+    # cleaning up unused files
+    && apt-get purge -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false \
+    && rm -rf /var/lib/apt/lists/*
 
 # install dependencies
 RUN pip install --upgrade pip
 COPY ./requirements ./requirements
 RUN pip install -r requirements/development.txt
 
-# copy entrypoint.sh
-COPY ./entrypoint.sh .
-RUN sed -i 's/\r$//g' /usr/src/app/entrypoint.sh
-RUN chmod +x /usr/src/app/entrypoint.sh
+# copy scripts/dev/web/entrypoint.sh
+COPY ./scripts/dev/web/entrypoint.sh /usr/src/app/scripts/dev/web/entrypoint.sh
+RUN sed -i 's/\r$//g' /usr/src/app/scripts/dev/web/entrypoint.sh
+RUN chmod +x /usr/src/app/scripts/dev/web/entrypoint.sh
 
-# copy scripts/dev/dev.web.sh
-COPY ./scripts/dev/dev.web.sh /usr/src/app/scripts/dev/
-RUN sed -i 's/\r$//g' /usr/src/app/scripts/dev/dev.web.sh
-RUN chmod +x /usr/src/app/scripts/dev/dev.web.sh
+# copy scripts/dev/web/start.sh
+COPY ./scripts/dev/web/start.sh /usr/src/app/scripts/dev/web/start.sh
+RUN sed -i 's/\r$//g' /usr/src/app/scripts/dev/web/start.sh
+RUN chmod +x /usr/src/app/scripts/dev/web/start.sh
 
 # copy project
 COPY . .
 
 # run entrypoint.sh
-ENTRYPOINT [ "sh", "/usr/src/app/entrypoint.sh" ]
+ENTRYPOINT ["/usr/src/app/scripts/dev/web/entrypoint.sh"]

@@ -53,8 +53,13 @@ services:
   smtp:
     image: mailhog/mailhog:v1.0.0
     container_name: mailhog
+    volumes:
+      - mailhog_data:${SMPT_STORAGE_PATH}
     ports:
-      - ${SMTP_SERVER_WEBUI}:${SMTP_SERVER_WEBUI}
+      - ${SMTP_WEBUI}:${SMTP_WEBUI}
+    environment:
+      MH_STORAGE: ${SMPT_STORAGE}
+      MH_MAILDIR_PATH: ${SMPT_STORAGE_PATH}
 
   web:
     build:
@@ -73,5 +78,6 @@ services:
 volumes:
   postgres_data:
   pgadmin4_data:
+  mailhog_data:
   staticfiles:
   media:

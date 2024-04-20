@@ -28,4 +28,4 @@ DJANGO_CSRF_TRUSTED_ORIGINS=http://localhost:${SERVER_PORT_MAP}
 # ------------------------------------------------------------------------------
 DJANGO_EMAIL_BACKEND=django.core.mail.backends.smtp.EmailBackend
 DJANGO_EMAIL_HOST=${SMTP_HOST}
-DJANGO_EMAIL_PORT=${SMTP_SERVER_PORT}
+DJANGO_EMAIL_PORT=${SMTP_PORT}

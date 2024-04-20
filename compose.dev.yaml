@@ -1,61 +1,74 @@
+version: '3.8'
+
 services:
-  web:
+  app:
     build:
       context: .
       dockerfile: docker/dev/web/dev.web.Dockerfile
     container_name: django
+    image: ${COMPOSE_PROJECT_NAME}_django
     volumes:
+      # ------------------------------------------------------------------------------
+      # this volume is used to map the files and folders on the host to the container
+      # so if we change code on the host, code in the docker container will also be
+      # changed. NOT REQUIRED IN PRODUCTION
+      # ------------------------------------------------------------------------------
       - .:/usr/src/app/
+      # ------------------------------------------------------------------------------
       - staticfiles:/usr/src/app/public/staticfiles
       - media:/usr/src/app/public/media
     command: /usr/src/app/scripts/dev/dev.web.sh
     expose:
       - 8000
     env_file:
-      - ./.env.dev.db
-      - ./.env.dev
+      - ./env_files/dev/.env.app
     depends_on:
-      - database
-      - mailhog
+      - db
+      - smtp
 
-  database:
+  db:
     image: postgres:15
     container_name: postgres
     volumes:
       - postgres_data:/var/lib/postgresql/data/
-    env_file:
-      - ./.env.dev.db
+    environment:
+      - POSTGRES_USER=${DB_USER}
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+      - POSTGRES_DB=${DB_NAME}
 
-  pgadmin:
+  db_admin:
     image: dpage/pgadmin4
     container_name: pgadmin4
     volumes:
       - pgadmin4_data:/var/lib/pgadmin
-    env_file:
-      - ./.env.dev.pgadmin
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=${DB_ADMIN_DEFAULT_EMAIL}
+      - PGADMIN_DEFAULT_PASSWORD=${DB_ADMIN_DEFAULT_PASSWORD}
+      - PGADMIN_LISTEN_PORT=${DB_ADMIN_LISTEN_PORT}
     ports:
-      - "5050:80"
+      - ${DB_ADMIN_LISTEN_PORT}:${DB_ADMIN_LISTEN_PORT}
     depends_on:
-      - database
+      - db
 
-  mailhog:
+  smtp:
     image: mailhog/mailhog:v1.0.0
     container_name: mailhog
     ports:
-      - "8025:8025"
+      - ${SMTP_SERVER_WEBUI}:${SMTP_SERVER_WEBUI}
 
-  nginx:
+  web:
     build:
       context: ./docker/dev/nginx
       dockerfile: dev.nginx.Dockerfile
+    image: ${COMPOSE_PROJECT_NAME}_nginx
     container_name: nginx
     volumes:
       - staticfiles:/usr/src/app/public/staticfiles
       - media:/usr/src/app/public/media
     ports:
-      - 1337:80
+      - ${SERVER_PORT_MAP}:80
     depends_on:
-      - web
+      - app
 
 volumes:
   postgres_data:

@@ -10,6 +10,7 @@ BASE_DIR = Path(__file__).resolve(strict=True).parent.parent.parent
 # '/project' directory
 PROJECT_DIR = BASE_DIR / "project"
 
+# Load environment variables from os.environ
 env = environ.Env()
 
 # GENERAL
@@ -20,10 +21,10 @@ DEBUG = env.bool("DJANGO_DEBUG", default=False)
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
 # though not all of them may be available with every OS.
 # In Windows, this must be set to your system time zone.
-TIME_ZONE = "UTC"
 # https://docs.djangoproject.com/en/dev/ref/settings/#language-code
-# https://docs.djangoproject.com/en/dev/ref/settings/#site-id
-SITE_ID = 1
+LANGUAGE_CODE = "en-us"
+# https://docs.djangoproject.com/en/dev/ref/settings/#time-zone
+TIME_ZONE = "UTC"
 # https://docs.djangoproject.com/en/dev/ref/settings/#use-i18n
 USE_I18N = True
 # https://docs.djangoproject.com/en/dev/ref/settings/#use-l10n
@@ -55,7 +56,6 @@ DJANGO_APPS = [
     "django.contrib.auth",
     "django.contrib.contenttypes",
     "django.contrib.sessions",
-    "django.contrib.sites",
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "django.forms",
@@ -200,6 +200,11 @@ CSRF_TRUSTED_ORIGINS = []  # Default
 # https://docs.djangoproject.com/en/dev/ref/settings/#x-frame-options
 X_FRAME_OPTIONS = "DENY"
 
+
+# HTTP
+# ------------------------------------------------------------------------------
+# https://docs.djangoproject.com/en/dev/ref/settings/#use-x-forwarded-host
+USE_X_FORWARDED_HOST = False  # Default
 
 # EMAIL
 # ------------------------------------------------------------------------------

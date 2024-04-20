@@ -16,10 +16,6 @@ COMMAND=python manage.py migrate
 # RULES
 # ------------------------------------------------------------------------------
 
-# GENERAL
-req-local:
-	python -m pip install -r requirements/development.txt
-
 # DOCKER
 # ------------------------------------------------------------------------------
 

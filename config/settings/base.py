@@ -64,7 +64,8 @@ THIRD_PARTY_APPS = [
     # ...
 ]
 LOCAL_APPS = [
-    "project.accounts.apps.UsersConfig",
+    "project.core.apps.CoreConfig",
+    "project.accounts.apps.AccountsConfig",
 ]
 
 # https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
@@ -276,3 +277,8 @@ LOGGING = {
 # Default primary key field type to use for models that don’t have a field
 # with primary_key=True.
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+# REDIS
+# https://docs.djangoproject.com/en/dev/topics/cache/#redis
+REDIS_HOST = env("REDIS_SERVER_HOST")
+REDIS_PORT = env("REDIS_SERVER_PORT")

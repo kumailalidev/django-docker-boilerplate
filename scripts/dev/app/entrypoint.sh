@@ -33,4 +33,15 @@ until postgres_ready; do
 done
 >&2 echo "PostgreSQL is available"
 
+if [ "$BROKER" = "rabbitmq" ]
+then
+    >&2 echo "Waiting for RabbitMQ to become available..."
+
+    while ! nc -z $BROKER_HOST $BROKER_PORT; do
+        sleep 0.1
+    done
+
+    >&2 echo "RabbitMQ started"
+fi
+
 exec "$@"

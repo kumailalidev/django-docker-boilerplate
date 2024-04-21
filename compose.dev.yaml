@@ -59,6 +59,18 @@ services:
     ports:
       - ${REDIS_INSIGHT_PORT_MAP}:8001
 
+  broker:
+    image: rabbitmq:3.13-management
+    container_name: rabbitmq
+    volumes:
+      - rabbitmq_data:/var/lib/rabbitmq
+    ports:
+      - ${BROKER_MANGEMENT_PORT_MAP}:15672
+    environment:
+      - RABBITMQ_DEFAULT_USER=${BROKER_USER}
+      - RABBITMQ_DEFAULT_PASS=${BROKER_PASSWORD}
+      - RABBITMQ_DEFAULT_VHOST=${BROKER_VHOST}
+
   smtp:
     image: mailhog/mailhog:v1.0.0
     container_name: mailhog
@@ -88,6 +100,7 @@ volumes:
   postgres_data:
   pgadmin4_data:
   redis_stack_data:
+  rabbitmq_data:
   mailhog_data:
   staticfiles:
   media:

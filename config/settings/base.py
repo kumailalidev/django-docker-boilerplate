@@ -282,3 +282,11 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 # https://docs.djangoproject.com/en/dev/topics/cache/#redis
 REDIS_HOST = env("REDIS_SERVER_HOST")
 REDIS_PORT = env("REDIS_SERVER_PORT")
+
+# RABBITMQ
+# https://www.rabbitmq.com/
+RABBITMQ_HOST = env("BROKER_HOST")
+RABBITMQ_PORT = env("BROKER_PORT")
+RABBITMQ_USER = env("BROKER_USER")
+RABBITMQ_PASS = env("BROKER_PASSWORD")
+RABBITMQ_VHOST = env("BROKER_VHOST")

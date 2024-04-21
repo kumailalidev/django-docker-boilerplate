@@ -34,3 +34,12 @@ DJANGO_EMAIL_PORT=${SMTP_PORT}
 # ------------------------------------------------------------------------------
 REDIS_SERVER_HOST=${REDIS_STACK_SERVER_HOST}
 REDIS_SERVER_PORT=${REDIS_STACK_SERVER_PORT}
+
+# RABBITMQ
+# ------------------------------------------------------------------------------
+BROKER=${BROKER_NAME}
+BROKER_HOST=${BROKER_HOST}
+BROKER_PORT=${BROKER_PORT}
+BROKER_USER=${BROKER_USER}
+BROKER_PASSWORD=${BROKER_PASSWORD}
+BROKER_VHOST=${BROKER_VHOST}

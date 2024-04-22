@@ -282,6 +282,8 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 # https://docs.djangoproject.com/en/dev/topics/cache/#redis
 REDIS_HOST = env("REDIS_SERVER_HOST")
 REDIS_PORT = env("REDIS_SERVER_PORT")
+REDIS_DB = 1
+REDIS_CELERY_RESULTS_BACKEND_DB = 2
 
 # RABBITMQ
 # https://www.rabbitmq.com/
@@ -290,3 +292,12 @@ RABBITMQ_PORT = env("BROKER_PORT")
 RABBITMQ_USER = env("BROKER_USER")
 RABBITMQ_PASS = env("BROKER_PASSWORD")
 RABBITMQ_VHOST = env("BROKER_VHOST")
+
+
+# CELERY
+# https://docs.celeryq.dev/en/stable/userguide/configuration.html
+# https://docs.celeryq.dev/en/stable/django/first-steps-with-django.html
+CELERY_BROKER_URL = f"amqp://{RABBITMQ_USER}:{RABBITMQ_PASS}@{RABBITMQ_HOST}:{RABBITMQ_PORT}/{RABBITMQ_VHOST}"
+CELERY_RESULT_BACKED = (
+    f"redis://{REDIS_HOST}:{REDIS_PORT}/{REDIS_CELERY_RESULTS_BACKEND_DB}"
+)

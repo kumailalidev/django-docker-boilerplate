@@ -4,8 +4,12 @@ COMPOSE_FILE=compose.dev.yaml
 ENV_FILE=--env-file .env.dev
 # ------------------------------------------------------------------------------
 DJANGO=app
+CELERY=worker
+FLOWER=flower
 POSTGRES=db
 PGADMIN4=db_admin
+REDIS=redis
+RABBITMQ=broker
 NGINX=web
 MAILHOG=smtp
 # ------------------------------------------------------------------------------
@@ -47,6 +51,26 @@ down:
 # "volumes" section of the Compose file and anonymous volumes attached to containers.
 down-v:
 	docker compose -f $(COMPOSE_FILE) $(ENV_FILE) down -v;
+
+# Remove all the dangling images
+image-prune:
+	docker image prune -f
+
+# Stop and remove all the containers, build services again, remove all the dangling images
+# and start the containers.
+down-build-clean-start: down build image-prune start
+
+# Stop and remove all the containers, build services again, remove all the dangling images
+# and start the containers in detached mode.
+down-build-clean-start-d: down build image-prune start-d
+
+# Stop and remove all the containers inc. volumes, build services again, remove all the dangling images
+# and start the containers.
+down-v-build-clean-start: down-v build image-prune start
+
+# Stop and remove all the containers inc. volumes, build services again, remove all the dangling images
+# and start the containers in detached mode.
+down-v-build-clean-start-d: down-v build image-prune start-d
 
 # Execute command in a running container
 execute:

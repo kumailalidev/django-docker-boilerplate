@@ -283,12 +283,14 @@ LOGGING = {
 
 # PRIMARY KEY FIELD TYPE
 # https://docs.djangoproject.com/en/dev/ref/settings/#default-auto-field
+# ------------------------------------------------------------------------------
 # Default primary key field type to use for models that don’t have a field
 # with primary_key=True.
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 # REDIS
 # https://docs.djangoproject.com/en/dev/topics/cache/#redis
+# ------------------------------------------------------------------------------
 REDIS_HOST = env("REDIS_SERVER_HOST")
 REDIS_PORT = env("REDIS_SERVER_PORT")
 REDIS_DB = 1
@@ -296,6 +298,7 @@ REDIS_CELERY_RESULT_BACKEND_DB = 2
 
 # RABBITMQ
 # https://www.rabbitmq.com/
+# ------------------------------------------------------------------------------
 RABBITMQ_HOST = env("BROKER_HOST")
 RABBITMQ_PORT = env("BROKER_PORT")
 RABBITMQ_USER = env("BROKER_USER")
@@ -306,6 +309,7 @@ RABBITMQ_URL = env("BROKER_URL")
 # CELERY
 # https://docs.celeryq.dev/en/stable/userguide/configuration.html
 # https://docs.celeryq.dev/en/stable/django/first-steps-with-django.html
+# ------------------------------------------------------------------------------
 CELERY_BROKER_URL = RABBITMQ_URL
 CELERY_RESULT_BACKEND = (
     f"redis://{REDIS_HOST}:{REDIS_PORT}/{REDIS_CELERY_RESULT_BACKEND_DB}"

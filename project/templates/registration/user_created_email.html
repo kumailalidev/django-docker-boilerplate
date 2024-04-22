@@ -1,0 +1,6 @@
+{% load i18n %}
+
+{% autoescape off %}
+{% translate 'Welcome' %} {{ user.get_username }}
+{% blocktranslate %}Your account has been created successfully at {{ site_name }}.{% endblocktranslate %}
+{% endautoescape %}

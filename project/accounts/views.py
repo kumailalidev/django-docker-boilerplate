@@ -8,6 +8,7 @@ from django.contrib.auth import login as auth_login
 from django.contrib.auth import REDIRECT_FIELD_NAME, logout as auth_logout
 from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.decorators import login_required
+from django.contrib.sites.shortcuts import get_current_site
 from django.shortcuts import resolve_url
 from django.urls import reverse_lazy
 from django.utils.decorators import method_decorator
@@ -29,6 +30,7 @@ from .forms import (
     PasswordResetForm,
 )
 from .utils import get_user_via_uidb64
+from .tasks import user_created
 
 LOGIN_URL = settings.LOGIN_URL
 LOGIN_REDIRECT_URL = settings.LOGIN_REDIRECT_URL
@@ -73,6 +75,18 @@ class SignUpView(RedirectURLMixin, FormView):
     def form_valid(self, form):
         """Create a new user, send success message and redirect to URL."""
         user = form.save()
+
+        # Get the site name, if Django sites framework not installed
+        # generate site name from request object.
+        current_site = get_current_site(self.request)
+        site_name = current_site.name
+
+        # email context
+        email_context = {"site_name": site_name}
+
+        # launch asynchronous task, send email to user
+        user_created.delay(user.id, email_context)
+
         messages.success(
             request=self.request,
             message=_("Your account had been created successfully."),

@@ -30,6 +30,11 @@ COPY ./scripts/dev/app/start.sh /usr/src/app/scripts/dev/app/start.sh
 RUN sed -i 's/\r$//g' /usr/src/app/scripts/dev/app/start.sh
 RUN chmod +x /usr/src/app/scripts/dev/app/start.sh
 
+# copy scripts/dev/app/celery/worker/start.sh
+COPY ./scripts/dev/app/celery/worker/start.sh /usr/src/app/scripts/dev/app/celery/worker/start.sh
+RUN sed -i 's/\r$//g' /usr/src/app/scripts/dev/app/celery/worker/start.sh
+RUN chmod +x /usr/src/app/scripts/dev/app/celery/worker/start.sh
+
 # copy project
 COPY . .
 

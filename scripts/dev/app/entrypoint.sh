@@ -7,6 +7,7 @@ set -o pipefail
 # exits if any of your variables is not set
 set -o nounset
 
+# Postgres
 postgres_ready() {
 python << END
 import sys
@@ -33,6 +34,7 @@ until postgres_ready; do
 done
 >&2 echo "PostgreSQL is available"
 
+# RabbitMQ
 if [ "$BROKER" = "rabbitmq" ]
 then
     >&2 echo "Waiting for RabbitMQ to become available..."

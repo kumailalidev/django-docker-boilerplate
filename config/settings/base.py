@@ -292,12 +292,12 @@ RABBITMQ_PORT = env("BROKER_PORT")
 RABBITMQ_USER = env("BROKER_USER")
 RABBITMQ_PASS = env("BROKER_PASSWORD")
 RABBITMQ_VHOST = env("BROKER_VHOST")
-
+RABBITMQ_URL = env("BROKER_URL")
 
 # CELERY
 # https://docs.celeryq.dev/en/stable/userguide/configuration.html
 # https://docs.celeryq.dev/en/stable/django/first-steps-with-django.html
-CELERY_BROKER_URL = f"amqp://{RABBITMQ_USER}:{RABBITMQ_PASS}@{RABBITMQ_HOST}:{RABBITMQ_PORT}/{RABBITMQ_VHOST}"
+CELERY_BROKER_URL = RABBITMQ_URL
 CELERY_RESULT_BACKEND = (
     f"redis://{REDIS_HOST}:{REDIS_PORT}/{REDIS_CELERY_RESULT_BACKEND_DB}"
 )

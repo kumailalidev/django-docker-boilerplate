@@ -53,6 +53,33 @@ services:
       - broker
       - smtp
 
+  flower:
+    build:
+      context: .
+      dockerfile: docker/dev/app/dev.app.Dockerfile
+    container_name: celery_flower
+    image: ${COMPOSE_PROJECT_NAME}_celery_flower
+    volumes:
+      # ------------------------------------------------------------------------------
+      # this volume is used to map the files and folders on the host to the container
+      # so if we change code on the host, code in the docker container will also be
+      # changed. NOT REQUIRED IN PRODUCTION
+      # ------------------------------------------------------------------------------
+      - .:/usr/src/app/
+      # ------------------------------------------------------------------------------
+      - staticfiles:/usr/src/app/public/staticfiles
+      - media:/usr/src/app/public/media
+    command: /usr/src/app/scripts/dev/app/celery/flower/start.sh
+    env_file:
+      - ./env_files/dev/.env.app
+    ports:
+      - ${FLOWER_PORT_MAP}:5555
+    depends_on:
+      - db
+      - redis
+      - broker
+      - smtp
+
   db:
     image: postgres:15
     container_name: postgres

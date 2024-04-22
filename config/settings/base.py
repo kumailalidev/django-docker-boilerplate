@@ -37,6 +37,15 @@ LOCALE_PATHS = [str(BASE_DIR / "locale")]
 # DATABASE
 # ------------------------------------------------------------------------------
 # https://docs.djangoproject.com/en/dev/ref/settings/#databases
+
+# POSTGRES
+# ------------------------------------------------------------------------------
+POSTGRES_DBNAME = env("DATABASE_NAME")
+POSTGRES_USER = env("DATABASE_USER")
+POSTGRES_PASSWORD = env("DATABASE_PASSWORD")
+POSTGRES_HOST = env("DATABASE_HOST")
+POSTGRES_PORT = env("DATABASE_PORT")
+
 DATABASES = {
     # PostgreSQL:   postgres://user:password@hostname_or_ip:port/database_name
     "default": env.db("DATABASE_URL")

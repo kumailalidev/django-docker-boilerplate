@@ -1,6 +1,6 @@
 from django.core.management.base import BaseCommand
+from django.conf import settings
 
-import environ
 import psycopg2
 
 
@@ -8,14 +8,12 @@ class Command(BaseCommand):
     help = "Check if Postgres server is up and running."
 
     def handle(self, *args, **kwargs):
-        # Load environment variables from os.environ
-        env = environ.Env()
 
-        postgres_host = env("DATABASE_HOST")
-        postgres_port = env("DATABASE_PORT")
-        postgres_dbname = env("DATABASE_NAME")
-        postgres_user = env("DATABASE_USER")
-        postgres_password = env("DATABASE_PASSWORD")
+        postgres_dbname = settings.POSTGRES_DBNAME
+        postgres_user = settings.POSTGRES_USER
+        postgres_password = settings.POSTGRES_PASSWORD
+        postgres_host = settings.POSTGRES_HOST
+        postgres_port = settings.POSTGRES_PORT
 
         try:
             psycopg2.connect(

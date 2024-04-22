@@ -29,5 +29,5 @@ def user_created(user_id, email_context):
         context=context,
         from_email=None,
         to_email=user_email,
-        html_email_template_name=None,
+        html_email_template_name="registration/user_created_email.html",
     )

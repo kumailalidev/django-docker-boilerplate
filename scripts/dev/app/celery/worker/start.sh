@@ -5,4 +5,6 @@ set -o errexit
 # exits if any of your variables is not set
 set -o nounset
 
-exec celery -A config.celery worker -l INFO
+exec watchfiles \
+    --filter python \
+    'celery -A config.celery worker -l INFO'

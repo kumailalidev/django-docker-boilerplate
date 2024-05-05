@@ -114,6 +114,18 @@ migrate:
 # Django migrations
 migrations: makemigrations migrate;
 
+# Run check_postgres management command
+check_postgres:
+	docker compose -f $(COMPOSE_FILE) $(ENV_FILE) exec $(DJANGO) python manage.py check_postgres;
+
+# Run check_redis management command
+check_redis:
+	docker compose -f $(COMPOSE_FILE) $(ENV_FILE) exec $(DJANGO) python manage.py check_redis;
+
+# Run check_rabbitmq management command
+check_rabbitmq:
+	docker compose -f $(COMPOSE_FILE) $(ENV_FILE) exec $(DJANGO) python manage.py check_rabbitmq;
+
 # TESTING
 # ------------------------------------------------------------------------------
 

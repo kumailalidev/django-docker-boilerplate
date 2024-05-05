@@ -156,6 +156,18 @@ STORAGES = {
     },
 }
 
+# CACHES
+# ------------------------------------------------------------------------------
+# https://docs.djangoproject.com/en/dev/ref/settings/#caches
+CACHES = {
+    # Default
+    "default": {
+        "BACKEND": "django.core.cache.backends.locmem.LocMemCache",
+        "LOCATION": "",
+    }
+}
+
+
 # 'public' directory for media and staticfiles
 PUBLIC_DIR = BASE_DIR / "public"
 

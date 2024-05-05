@@ -85,6 +85,18 @@ STORAGES = {
     },
 }
 
+# CACHES
+# ------------------------------------------------------------------------------
+# https://docs.djangoproject.com/en/dev/ref/settings/#caches
+CACHES = {
+    # TODO: Setup redis as a cache backend
+    # https://docs.djangoproject.com/en/5.0/topics/cache/#redis
+    "default": {
+        "BACKEND": "django.core.cache.backends.locmem.LocMemCache",
+        "LOCATION": "",
+    }
+}
+
 # ADMIN
 # ------------------------------------------------------------------------------
 # Django Admin URL regex.

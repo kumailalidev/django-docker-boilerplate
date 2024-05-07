@@ -9,6 +9,8 @@ from pathlib import Path
 BASE_DIR = Path(__file__).resolve(strict=True).parent.parent.parent
 # '/project' directory
 PROJECT_DIR = BASE_DIR / "project"
+# 'public' directory for media and staticfiles
+PUBLIC_DIR = BASE_DIR / "public"
 
 # Load environment variables from os.environ
 env = environ.Env()
@@ -17,13 +19,13 @@ env = environ.Env()
 # ------------------------------------------------------------------------------
 # https://docs.djangoproject.com/en/dev/ref/settings/#debug
 DEBUG = env.bool("DJANGO_DEBUG", default=False)
+# https://docs.djangoproject.com/en/dev/ref/settings/#language-code
+LANGUAGE_CODE = "en-us"
+# https://docs.djangoproject.com/en/dev/ref/settings/#time-zone
 # Local time zone. Choices are
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
 # though not all of them may be available with every OS.
 # In Windows, this must be set to your system time zone.
-# https://docs.djangoproject.com/en/dev/ref/settings/#language-code
-LANGUAGE_CODE = "en-us"
-# https://docs.djangoproject.com/en/dev/ref/settings/#time-zone
 TIME_ZONE = "UTC"
 # https://docs.djangoproject.com/en/dev/ref/settings/#use-i18n
 USE_I18N = True
@@ -47,6 +49,7 @@ POSTGRES_HOST = env("DATABASE_HOST")
 POSTGRES_PORT = env("DATABASE_PORT")
 
 DATABASES = {
+    # https://django-environ.readthedocs.io/en/latest/types.html#environ-env-db-url
     # PostgreSQL:   postgres://user:password@hostname_or_ip:port/database_name
     "default": env.db("DATABASE_URL")
 }
@@ -166,10 +169,6 @@ CACHES = {
         "LOCATION": "",
     }
 }
-
-
-# 'public' directory for media and staticfiles
-PUBLIC_DIR = BASE_DIR / "public"
 
 # STATIC
 # ------------------------------------------------------------------------------

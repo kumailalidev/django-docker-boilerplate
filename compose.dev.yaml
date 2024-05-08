@@ -26,7 +26,7 @@ services:
       - db
       - redis
       - broker
-      - smtp
+      - mailhog
 
   worker:
     build:
@@ -51,7 +51,7 @@ services:
       - db
       - redis
       - broker
-      - smtp
+      - mailhog
 
   flower:
     build:
@@ -78,7 +78,7 @@ services:
       - db
       - redis
       - broker
-      - smtp
+      - mailhog
 
   db:
     image: postgres:15
@@ -124,16 +124,16 @@ services:
       - RABBITMQ_DEFAULT_PASS=${BROKER_PASSWORD}
       - RABBITMQ_DEFAULT_VHOST=${BROKER_VHOST}
 
-  smtp:
+  mailhog:
     image: mailhog/mailhog:v1.0.0
     container_name: mailhog
     volumes:
-      - mailhog_data:${SMPT_STORAGE_PATH}
+      - mailhog_data:${MAILHOG_MAILDIR_PATH}
     ports:
-      - ${SMTP_WEBUI_PORT}:${SMTP_WEBUI_PORT}
+      - ${MAILHOG_WEBUI_PORT}:${MAILHOG_WEBUI_PORT}
     environment:
-      MH_STORAGE: ${SMPT_STORAGE}
-      MH_MAILDIR_PATH: ${SMPT_STORAGE_PATH}
+      MH_STORAGE: ${MAILHOG_STORAGE}
+      MH_MAILDIR_PATH: ${MAILHOG_MAILDIR_PATH}
 
   web:
     build:

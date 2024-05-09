@@ -86,9 +86,9 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data/
     environment:
-      - POSTGRES_USER=${DB_USER}
-      - POSTGRES_PASSWORD=${DB_PASSWORD}
-      - POSTGRES_DB=${DB_NAME}
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_NAME}
 
   db_admin:
     image: dpage/pgadmin4
@@ -96,9 +96,9 @@ services:
     volumes:
       - pgadmin4_data:/var/lib/pgadmin
     environment:
-      - PGADMIN_DEFAULT_EMAIL=${DB_ADMIN_DEFAULT_EMAIL}
-      - PGADMIN_DEFAULT_PASSWORD=${DB_ADMIN_DEFAULT_PASSWORD}
-      - PGADMIN_LISTEN_PORT=${DB_ADMIN_LISTEN_PORT}
+      PGADMIN_DEFAULT_EMAIL: ${DB_ADMIN_DEFAULT_EMAIL}
+      PGADMIN_DEFAULT_PASSWORD: ${DB_ADMIN_DEFAULT_PASSWORD}
+      PGADMIN_LISTEN_PORT: ${DB_ADMIN_LISTEN_PORT}
     ports:
       - ${DB_ADMIN_LISTEN_PORT}:${DB_ADMIN_LISTEN_PORT}
     depends_on:
@@ -120,9 +120,9 @@ services:
     ports:
       - ${BROKER_MANGEMENT_PORT_MAP}:15672
     environment:
-      - RABBITMQ_DEFAULT_USER=${BROKER_USER}
-      - RABBITMQ_DEFAULT_PASS=${BROKER_PASSWORD}
-      - RABBITMQ_DEFAULT_VHOST=${BROKER_VHOST}
+      RABBITMQ_DEFAULT_USER: ${BROKER_USER}
+      RABBITMQ_DEFAULT_PASS: ${BROKER_PASSWORD}
+      RABBITMQ_DEFAULT_VHOST: ${BROKER_VHOST}
 
   mailhog:
     image: mailhog/mailhog:v1.0.0

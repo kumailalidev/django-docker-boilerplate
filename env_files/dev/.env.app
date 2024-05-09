@@ -20,7 +20,7 @@ DATABASE_URL=${DB_URL}
 # SECURITY
 # ------------------------------------------------------------------------------
 # NGINX reverse proxy server
-DJANGO_CSRF_TRUSTED_ORIGINS=http://localhost:${SERVER_PORT_MAP}
+DJANGO_CSRF_TRUSTED_ORIGINS=http://localhost:${NGINX_PORT_MAP}
 
 # EMAIL (mailhog)
 # ------------------------------------------------------------------------------

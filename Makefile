@@ -118,6 +118,10 @@ migrate:
 # Django migrations
 migrations: makemigrations migrate;
 
+# Create super user
+createsuperuser:
+	docker compose -f $(COMPOSE_FILE) $(ENV_FILE) exec $(DJANGO) python manage.py createsuperuser;
+
 # Run check_postgres management command
 check_postgres:
 	docker compose -f $(COMPOSE_FILE) $(ENV_FILE) exec $(DJANGO) python manage.py check_postgres;
